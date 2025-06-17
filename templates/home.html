@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+
+<nav style="display:flex;gap:30px;align-items:center">
+    {% load static %}
+    <img style="height:20px" src="{% static 'images/aceattorney-logo.png' %}">
+    <span>Hello, {{ request.user }}</span>
+    <span><a href="{% url 'logout' %}">Logout</a></span>
+</nav>
+
+<br>
+
+<h1>Evidence Record</h1>
+
+<a href="{% url 'create_evidence'%}">Add new evidence</a>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Image</th>
+        <th>Description</th>
+        <th>Posted By</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    {% for item in evidence %}
+        <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.category }}</td>
+            <td>
+                {% if item.icon %}
+                    <img style="height:3em;margin-bottom:auto" src="/media/{{item.icon}}">
+                {% endif %}
+            </td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.legalUser }}</td>
+            <td><a href="update/{{ item.id }}">Edit</a></td>
+            <td><a href="delete/{{ item.id }}">Delete</a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+
+<h1>Court Battles</h1>
+
+<a href="{% url 'newBattle'%}">Add new battle</a>
+
+<table>
+    <tr>
+        <th>Year</th>
+        <th>Verdict</th>
+        <th>Participants</th>
+    </tr>
+    {% for battle in battles %}
+        <tr>
+            <td>{{ battle.year }}</td>
+            <td>{{ battle.verdict }}</td>
+            <td>
+                {% for legalUser in battle.legalUser.all %}
+                    {{ legalUser }}
+                {% endfor %}
+            </td>
+            <td><a href="updatebattle/{{ battle.id }}">Edit</a></td>
+            <td><a href="deletebattle/{{ battle.id }}">Delete</a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+</html>

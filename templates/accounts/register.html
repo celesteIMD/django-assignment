@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+
+<h1>Register</h1>
+
+<form method="POST" action="">
+    {% csrf_token %}
+
+    <div>
+        {{ form.username.label }}
+        {{ form.username }}
+    </div>
+
+    <div>
+        {{ form.email.label }}
+        {{ form.email }}
+    </div>
+
+    <div>
+        {{ form.password1.label }}
+        {{ form.password1 }}
+    </div>
+
+    <div>
+        {{ form.password2.label }}
+        {{ form.password2 }}
+    </div>
+
+    <input type="submit" name="Create User">
+
+    <div>
+        {{ form.errors }}
+    </div>
+
+    <div>
+        <a href="{% url 'login' %}">Login</a>
+    </div>
+</form>
+
+</body>
+</html>
